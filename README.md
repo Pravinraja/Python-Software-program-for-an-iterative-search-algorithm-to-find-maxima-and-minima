@@ -41,4 +41,5 @@ Note: Without epsilon, the algorithm would take an infinite number of steps tryi
 1. Clone the repository:
    ```bash
    git clone [https://github.com/your-username/car-fuel-optimizer.git](https://github.com/your-username/car-fuel-optimizer.git)
-   cd car-fuel-optimizer
+   cd car-fuel-optimize
+   Then run the program and process your input values from car model, make and fuel, mpg
