@@ -1,25 +1,42 @@
-Python software program for an iterative search algorithm to find maxima and minima of analytically intractable functions- Car Fuel Consumption based on MPH 
+# Car Fuel Optimization Search Algorithm
 
-My Real-World Physics & Use Case: Plug and Play in any scenario you find deemable. 
+A Python software program that implements an **iterative numerical optimization search algorithm** (gradient ascent/descent) to find the optimal cruising speed for maximizing vehicle fuel efficiency (MPG) and identifying efficiency extremes.
 
-Car Fuel Consumption:
-Lets Think: When you drive a car down the highway, fuel economy (MPG) does not form a straight line; it follows an inverted parabola with a distinct sweet spot (usually between 55 and 65 mph). The code simulates this behavior through three primary real-world constraints:
+---
 
-1. Too Slow (Below Lower Limit): If you crawl in heavy stop-and-go city traffic, your engine spends too much time running inefficiently in low gears on the transmission, resulting in high fuel consumption. The code applies a penalty multiplier (0.4) for every mph below the target band.
+## Real-World Physics & Use Case
 
-2. The Sweet Spot (Optimal Speed): At moderate cruising speeds (e.g., ~55–65 mph), the engine operates near its peak thermal and mechanical efficiency in top gear.
+When driving a car, fuel economy does not follow a linear path—it forms an **inverted parabola** with a distinct "sweet spot" (typically between 55 and 65 mph). This script models real-world driving constraints:
 
-3. Too Fast (Above Upper Limit): Aerodynamic drag (wind resistance) increases with the square of your velocity, while the engine power required to punch through that air scales with the cube of your velocity. Example: If you push a 2007 Lexus IS 250 up to 75 or 80 mph, drag spikes dramatically. The code models this steeper penalty (0.5 per mph) because high-speed wind resistance tanks fuel economy.   
+Term to know: Drag coefficient: measures an object's resistance to moving through a fluid- in this case the fuel in the car
+1. **Stop-and-Go Traffic (Too Slow):** Operating below the efficient lower speed limit keeps the engine in inefficient low transmission gears, increasing fuel consumption (modeled with a `0.4` penalty per mph).
+2. **The Sweet Spot (Optimal Speed):** Moderate cruising speeds (e.g., ~55–65 mph) allow the engine to operate near peak thermal and mechanical efficiency in top gear.
+3. **Aerodynamic Drag (Too Fast):** Wind resistance increases with the square of velocity, and power requirements scale with the cube of velocity. Pushing past the upper speed limit spikes drag dramatically (modeled with a steeper `0.5` penalty per mph).
+4. **Acceleration Penalties:** Rapid acceleration forces the engine to dump extra fuel into the cylinders (`acceleration_penalty = 1 + (acceleration * 0.3)`), scaling down overall MPG.
 
-Sciencing
-+ 1
-Acceleration Penalties: Stomping on the gas pedal forces the engine to dump extra fuel into the cylinders to build kinetic energy rapidly. The code simulates this via acceleration_penalty = 1 + (acceleration * 0.3), which scales down your overall MPG.
+---
 
-How the Algorithm Solves It
-Because real-world fuel curves can be analytically intractable (meaning you can't easily solve them with a simple high school algebra formula due to shifting gear ratios, drag coefficients, and engine maps), the script uses numerical optimization:
+## How the Algorithm Solves It
 
-Gradient Descent (find_extrema with find_max=False): Steps through speeds incrementally to find the exact bottom of the fuel consumption curve—the optimal cruising speed where your fuel consumption is minimized (and your MPG is maximized).
+Because real-world fuel curves are analytically intractable (meaning they cannot be solved with simple high school algebra due to shifting gear ratios and drag coefficients), the script uses **numerical optimization**:
+* **Finite Differences (`approximate_slope`):** Calculates the local slope/derivative of the fuel consumption curve at any given speed.
+* **Gradient Ascent/Descent (`find_extrema`):** Iteratively steps through speeds to locate the exact peak efficiency point.
+* **Epsilon Stopping Condition (`epsilon`):** Halts the loop when further iterations yield negligible functional improvements ($< \epsilon$).
 
-Gradient Ascent / Boundary Checks: Scans the outer boundaries (e.g., bumper-to-bumper crawl vs. max highway speed) to find where efficiency collapses entirely (maximum fuel consumption).
+Note: Without epsilon, the algorithm would take an infinite number of steps trying to reach the exact dead center of the peak
+---
 
-By plugging in your vehicle parameters after running the code it will punch or spit out the value for you (base_mpg, optimal_speed, lower_limit, upper_limit), the algorithm numerically maps out the exact economic tipping points for that specific machine.
+## Code Structure
+
+- `approximate_slope()`: Estimates the derivative of the performance function using small finite differences ($h$).
+- `find_extrema()`: Core optimization loop implementing step-by-step gradient movement and bounding.
+- `fuel_consumption()`: Simulates real-world MPG penalties based on speed limits, drag, and acceleration.
+
+---
+
+## Getting Started
+
+1. Clone the repository:
+   ```bash
+   git clone [https://github.com/your-username/car-fuel-optimizer.git](https://github.com/your-username/car-fuel-optimizer.git)
+   cd car-fuel-optimizer
