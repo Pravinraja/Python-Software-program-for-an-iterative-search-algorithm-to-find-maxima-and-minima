@@ -1,6 +1,8 @@
-# Car Fuel Optimization Search Algorithm
+# Car Fuel Optimization Search Algorithm: Software program for an iterative search algorithm to find maxima and minima of analytically intractable functions- Car Fuel Consumption based on MPH 
 
 A Python software program that implements an **iterative numerical optimization search algorithm** (gradient ascent/descent) to find the optimal cruising speed for maximizing vehicle fuel efficiency (MPG) and identifying efficiency extremes.
+
+This Python program implements an iterative numerical optimization algorithm using gradient ascent and descent to find the optimal speeds that maximize and minimize vehicle fuel efficiency. Because real-world automotive fuel consumption curves are analytically intractable due to shifting gear ratios and aerodynamic drag, the script uses finite differences to approximate slopes and iteratively converge on exact extrema. By evaluating these performance boundaries alongside epsilon stopping thresholds and acceleration penalties, it maps out the critical economic tipping points for any user-defined vehicle inputted into the pythin script run.
 
 ---
 
